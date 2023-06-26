@@ -7,8 +7,29 @@
     <insert id="insDiary">
         INSERT INTO p_diary
         (title, ctnt)
-        VALUER
+        VALUES
         (#{title},#{ctnt})
     </insert>
 
+    <delete id="delDiary">
+        DELETE FROM p_diary
+        WHERE idiary = #{idiary}
+    </delete>
+
+    <update id="updDiary">
+        UPDATE p_diary
+        SET title = #{title},
+        ctnt = #{ctnt}
+        WHERE idiary = #{idiary}
+    </update>
+
+    <select id="selDiaryAll">
+        SELECT DATE_FORMAT(created_at, '%Y.%m.%d') createdAt, title, ctnt
+        FROM p_diary
+    </select>
+    <select id="selDiaryById">
+        SELECT DATE_FORMAT(created_at, '%Y.%m.%d') createdAt, title, ctnt
+        FROM p_diary
+        WHERE idiary = #{idiary}
+    </select>
 </mapper>
