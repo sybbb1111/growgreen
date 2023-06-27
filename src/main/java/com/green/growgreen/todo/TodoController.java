@@ -20,7 +20,7 @@ public class TodoController {
     }
 
     @PostMapping
-    @Operation(summary = "Todo 등록")
+    @Operation(summary = "Todo 등록", description = "deadline 형식 = 년-월-일 시:분:초")
     public int postTodo(@RequestBody TodoInsDto dto) {
         return SERVICE.postTodo(dto);
     }
@@ -47,7 +47,7 @@ public class TodoController {
     @DeleteMapping
     @Operation(summary = "Todo 삭제")
     public int deleteTodo(@RequestParam int itodo) {
-        return 1;
+        return SERVICE.deleteTodo(itodo);
     }
 
 }

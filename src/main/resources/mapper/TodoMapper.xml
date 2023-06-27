@@ -21,7 +21,7 @@
     </select>
 
     <select id="selTodoByDay">
-        SELECT itodo, ctnt, deadline, finish_yn
+        SELECT itodo, iplant, ctnt, deadline, finish_yn
         FROM p_todo
         WHERE DATE_FORMAT(deadline, '%Y-%m-%d') = #{deadline}
         AND del_yn = 0
@@ -31,6 +31,12 @@
         UPDATE p_todo
         SET iplant = #{iplant}, deadline = #{deadline}, ctnt = #{ctnt},
         repeat_yn = #{repeatYn}, repeat_day = #{repeatDay}
+        WHERE itodo = #{itodo}
+    </update>
+
+    <update id="updTodoRepeatDay">
+        UPDATE p_day
+        SET repeat_day = #{repeatDay}
         WHERE itodo = #{itodo}
     </update>
 
