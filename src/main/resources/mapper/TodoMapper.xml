@@ -14,7 +14,7 @@
     </insert>
 
     <select id="selTodo">
-        SELECT itodo, ctnt, deadline, finish_yn
+        SELECT itodo, iplant, ctnt, deadline, finish_yn
         FROM p_todo
         WHERE del_yn = 0
         ORDER BY deadline
