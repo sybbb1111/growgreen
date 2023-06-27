@@ -16,7 +16,29 @@ public class TodoService {
     }
 
     public int postTodo(TodoInsDto dto) {
-        return MAPPER.insTodo(dto);
+        TodoEntity entity = new TodoEntity();
+        entity.setIplant(dto.getIplant());
+        entity.setCtnt(dto.getCtnt());
+        entity.setDeadline(dto.getDeadline());
+        entity.setRepeatYn(dto.getRepeatYn());
+        //Todo등록
+        MAPPER.insTodo(entity);
+
+        // repeatYn이 1이면 p_day테이블에 인서트
+        if( dto.getRepeatYn().equals("1") ) {
+            TodoRepeatDayDto repeatDto = new TodoRepeatDayDto();
+
+            //프론트에서 받은 String 1을 정수형으로 바꾸기
+            int repeatIntDay = Integer.parseInt(dto.getRepeatDay());
+
+            repeatDto.setRepeatDay(repeatIntDay);
+            repeatDto.setItodo(entity.getItodo());
+
+            MAPPER.insRepeatDay(repeatDto);
+
+            return entity.getItodo();
+        }
+        return entity.getItodo();
     }
 
     public List<TodoVo> getTodo() {

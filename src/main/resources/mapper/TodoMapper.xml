@@ -3,11 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.growgreen.todo.TodoMapper">
-    <insert id="insTodo">
+    <insert id="insTodo" useGeneratedKeys="true" keyProperty="itodo">
         INSERT INTO p_todo
-        ( iplant, ctnt, deadline, repeatYn, repeatDay )
-        VALUES
-        ( #{iplant}, #{ctnt}, #{deadline}, #{repeatYn}, #{repeatDay} )
+        SET iplant = #{iplant}, ctnt = #{ctnt}, deadline = #{deadline}, repeat_yn = #{repeatYn}
+    </insert>
+
+    <insert id="insRepeatDay">
+        INSERT INTO p_day
+        SET itodo = #{itodo}, repeat_day = #{repeatDay}
     </insert>
 
     <select id="selTodo">
