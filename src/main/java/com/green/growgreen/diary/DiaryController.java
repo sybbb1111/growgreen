@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,10 +18,11 @@ import java.util.List;
 public class DiaryController {
     private final DiaryService SERVICE;
 
-    @PostMapping
-    @Operation(summary = "다이어리 등록")
-    public int postDiary(@RequestBody DiaryInsDto dto){
-        return SERVICE.postDiary(dto);
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @Operation(summary = "다이어리 등록, 메인사진과 함께 등록")
+    public int postDiary(@RequestPart MultipartFile pic,
+                         @RequestPart DiaryInsDto dto){
+        return SERVICE.postDiary(pic, dto);
     }
 
     @DeleteMapping
@@ -45,8 +48,7 @@ public class DiaryController {
     @GetMapping("/{idiary}")
     @Operation(summary = "다이어리 디테일 보기")
     public DiarySelAllVo selDiaryDetail (@PathVariable int idiary) {
-        DiarySelDetailDto dto = new DiarySelDetailDto();
-        dto.setIdiary(idiary);
+        DiarySelDetailDto dto = new DiarySelDetailDto(idiary);
         return SERVICE.selById(dto);
     }
  }

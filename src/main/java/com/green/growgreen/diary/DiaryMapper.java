@@ -7,9 +7,13 @@ import java.util.List;
 
 @Mapper
 public interface DiaryMapper {
-    int insDiary (DiaryInsDto dto);
+    int insDiary (DiaryEntity entity);
     int delDiary (DiaryDelDto dto);
     int updDiary (DiaryUpdDto dto);
     List<DiarySelAllVo> selDiaryAll ();
     DiarySelAllVo selDiaryById (DiarySelDetailDto dto);
+
+    int insDiaryPic (List<DiaryPicEntity> entity);
+    List<String> selDiaryDetailPics(DiarySelDetailDto dto);
+
 }

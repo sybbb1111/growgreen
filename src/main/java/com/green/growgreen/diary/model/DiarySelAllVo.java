@@ -9,4 +9,5 @@ public class DiarySelAllVo {
     private String title;
     private String ctnt;
     private String createdAt;
+    private String pic;
 }

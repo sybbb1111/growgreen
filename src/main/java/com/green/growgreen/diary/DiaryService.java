@@ -1,10 +1,16 @@
 package com.green.growgreen.diary;
 
 import com.green.growgreen.diary.model.*;
+import com.green.growgreen.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,8 +18,12 @@ import java.util.List;
 public class DiaryService {
     private final DiaryMapper MAPPER;
 
-    public int postDiary (DiaryInsDto dto){
-        return MAPPER.insDiary(dto);
+    @Value("${file.dir}")
+    private String fileDir;
+
+    // 썸네일 이미지와 처음 insert 하는 부분
+    public int postDiary (MultipartFile pic, DiaryInsDto dto){
+       return 0;
     }
 
     public int delDiary (DiaryDelDto dto) {

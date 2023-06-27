@@ -1,10 +1,10 @@
 package com.green.growgreen.diary.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-public class DiarySelDetailDto {
+public class DiaryPicEntity {
+    private int ipic;
     private int idiary;
+    private String pic;
 }

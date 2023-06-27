@@ -4,11 +4,20 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.growgreen.diary.DiaryMapper">
 
-    <insert id="insDiary">
+    <insert id="insDiary" useGeneratedKeys="true" keyProperty="idiary">
         INSERT INTO p_diary
-        (title, ctnt)
+        (title, ctnt, pic)
         VALUES
-        (#{title},#{ctnt})
+        (#{title},#{ctnt}, #{pic})
+    </insert>
+
+    <insert id="insDiaryPic">
+        INSERT INTO p_diary_pic
+        (idiary, pic)
+        VALUES
+        <foreach collection="list" item="item" open="(" separator="), (" close=")">
+            #{item.idiary}, #{item.pic}
+        </foreach>
     </insert>
 
     <delete id="delDiary">
@@ -24,12 +33,19 @@
     </update>
 
     <select id="selDiaryAll">
-        SELECT DATE_FORMAT(created_at, '%Y.%m.%d') createdAt, title, ctnt
+        SELECT DATE_FORMAT(created_at, '%Y.%m.%d') createdAt, title, ctnt, pic
         FROM p_diary
     </select>
+
     <select id="selDiaryById">
-        SELECT DATE_FORMAT(created_at, '%Y.%m.%d') createdAt, title, ctnt
+        SELECT DATE_FORMAT(created_at, '%Y.%m.%d') createdAt, title, ctnt, pic
         FROM p_diary
+        WHERE idiary = #{idiary}
+    </select>
+
+    <select id="selDiaryDetailPics">
+        SELECT pic
+        FROM p_diary_pic
         WHERE idiary = #{idiary}
     </select>
 </mapper>
