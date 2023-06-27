@@ -3,7 +3,9 @@ package com.green.growgreen.plant;
 import com.green.growgreen.plant.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,16 +15,18 @@ import java.util.List;
 public class PlantController {
     private final PlantService SERVICE;
 
-    @PostMapping
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "식물 등록")
-    public int postPlant(@RequestBody PlantInsDto dto){
-        return SERVICE.insPlant(dto);
+    public int postPlant(@RequestPart MultipartFile img
+                         ,@RequestPart PlantInsDto dto){
+        return SERVICE.insPlant(img, dto);
     }
 
-    @PutMapping
+    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "식물 수정")
-    public int putPlant(@RequestBody PlantUpdDto dto){
-        return SERVICE.updPlant(dto);
+    public int putPlant(@RequestPart MultipartFile img
+                         ,@RequestPart PlantUpdDto dto){
+        return SERVICE.updPlant(img, dto);
     }
 
     @DeleteMapping

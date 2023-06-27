@@ -8,9 +8,11 @@ import java.util.List;
 @Mapper
 public interface TodoMapper {
 
-    int insTodo(TodoInsDto dto);
+    int insTodo(TodoEntity entity);
+    int insRepeatDay(TodoRepeatDayDto repeatDayDtodto);
     List<TodoVo> selTodo();
     List<TodoVo> selTodoByDay(TodoSelDto dto);
     int updTodo(TodoUpdDto dto);
+    int updTodoRepeatDay(TodoRepeatDayDto repeatDayDtodto);
     int delTodo(TodoEntity entity);
 }

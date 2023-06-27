@@ -7,7 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface PlantMapper {
-    int insPlant(PlantInsDto dto);
+    int insPlant(PlantEntity entity);
+
     int updPlant(PlantUpdDto dto);
     int delPlant(PlantDelDto dto);
 
