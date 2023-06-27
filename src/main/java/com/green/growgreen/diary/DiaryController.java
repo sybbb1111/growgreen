@@ -32,6 +32,12 @@ public class DiaryController {
         dto.setIdiary(idiary);
         return SERVICE.delDiary(dto);
     }
+    @PostMapping(value = "/{idiary}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @Operation(summary = "다이어리 파일 다중 업로드")
+    public int insDiaryPic (@PathVariable int idiary,
+                            @RequestPart List<MultipartFile> pics) throws Exception {
+        return SERVICE.insDiaryPics(idiary, pics);
+    }
 
     @PutMapping
     @Operation(summary = "다이어리 수정")
@@ -47,8 +53,7 @@ public class DiaryController {
 
     @GetMapping("/{idiary}")
     @Operation(summary = "다이어리 디테일 보기")
-    public DiarySelAllVo selDiaryDetail (@PathVariable int idiary) {
-        DiarySelDetailDto dto = new DiarySelDetailDto(idiary);
-        return SERVICE.selById(dto);
+    public DiaryAllDto selDiaryDetail (@PathVariable int idiary) {
+        return SERVICE.selDiaryPicData(new DiarySelDetailDto (idiary));
     }
  }
