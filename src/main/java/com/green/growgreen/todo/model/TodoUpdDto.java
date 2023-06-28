@@ -2,6 +2,8 @@ package com.green.growgreen.todo.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class TodoUpdDto {
     private int itodo;
@@ -9,6 +11,6 @@ public class TodoUpdDto {
     private String deadline;
     private String ctnt;
     private String repeatYn;
-    private String repeatDay;
+    private List<String> repeatDay;
 
 }
