@@ -28,7 +28,17 @@
     <update id="updDiary">
         UPDATE p_diary
         SET title = #{title},
-        ctnt = #{ctnt}
+        ctnt = #{ctnt},
+        pic = #{pic}
+        WHERE idiary = #{idiary}
+    </update>
+
+    <update id="updDiarySubPic">
+        UPDATE p_diary_pic
+        SET pic =
+        <foreach collection="list" item="item" open="(" separator="), (" close=")">
+            #{item.idiary}, #{item.pic}
+        </foreach>
         WHERE idiary = #{idiary}
     </update>
 

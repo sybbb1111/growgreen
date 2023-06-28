@@ -23,6 +23,7 @@ public class DiaryService {
 
     // 썸네일 이미지와 처음 insert 하는 부분
     public int postDiary (MultipartFile pic, DiaryInsDto dto){
+
         DiaryEntity entity = new DiaryEntity();
         entity.setCtnt(dto.getCtnt());
         entity.setTitle(dto.getTitle());
@@ -84,12 +85,69 @@ public class DiaryService {
         return Integer.valueOf(MAPPER.insDiaryPic(list));
     }
 
-    public int delDiary (DiaryDelDto dto) {
-        return MAPPER.delDiary(dto);
+    public int putDiaryPics (int idiary, List<MultipartFile> pics) throws Exception  {
+
+        String centPath = String.format("diaryPics/%d", idiary);
+        String targetDir = String.format("%s/%s", fileDir,centPath);
+
+        File file = new File(targetDir);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+
+        List<DiaryPicEntity> list = new ArrayList<>();
+
+        for (MultipartFile multipartFile : pics) {
+
+            String originFile = multipartFile.getOriginalFilename();
+            String saveName = FileUtils.makeRandomFileNm(originFile);
+
+            File fileTarget = new File(targetDir + "/" + saveName);
+
+            try {
+                multipartFile.transferTo(fileTarget);
+            } catch (IOException e) {
+                throw new Exception("파일 저장을 실패하였습니다.");
+            }
+
+            DiaryPicEntity entity = new DiaryPicEntity();
+            entity.setPic(saveName);
+            entity.setIdiary(idiary);
+            list.add(entity);
+        }
+
+        return Integer.valueOf(MAPPER.updDiarySubPic(list));
     }
 
-    public int updDiary (DiaryUpdDto dto){
-        return MAPPER.updDiary(dto);
+    public int updDiary (MultipartFile pic, DiaryUpdDto dto){
+
+        DiaryEntity entity = new DiaryEntity();
+        entity.setIdiary(dto.getIdiary());
+        entity.setCtnt(dto.getCtnt());
+        entity.setTitle(dto.getTitle());
+
+        String saveFileName = FileUtils.makeRandomFileNm(pic.getOriginalFilename());
+        entity.setPic(saveFileName);
+
+        int result = MAPPER.updDiary(entity);
+
+        String centPath = String.format("diaryPics/%d", dto.getIdiary());
+        String targetDir = String.format("%s/%s", fileDir,centPath);
+
+        File file = new File(targetDir);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+
+        File fileTarget = new File(targetDir + "/" + saveFileName);
+
+        try {
+            pic.transferTo(fileTarget);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
     }
 
     public List<DiarySelAllVo> selDiary(){
@@ -109,5 +167,9 @@ public class DiaryService {
                 .data(data)
                 .pics(pics)
                 .build();
+    }
+
+    public int delDiary (DiaryDelDto dto) {
+        return MAPPER.delDiary(dto);
     }
 }
