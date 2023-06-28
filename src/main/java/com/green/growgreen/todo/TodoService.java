@@ -28,13 +28,13 @@ public class TodoService {
         if( dto.getRepeatYn().equals("1") ) {
             TodoRepeatDayDto repeatDto = new TodoRepeatDayDto();
 
-            //프론트에서 받은 String 1을 정수형으로 바꾸기
-            int repeatIntDay = Integer.parseInt(dto.getRepeatDay());
-
-            repeatDto.setRepeatDay(repeatIntDay);
             repeatDto.setItodo(entity.getItodo());
 
-            MAPPER.insRepeatDay(repeatDto);
+            for(int i=0; i<dto.getRepeatDay().size(); i++) {
+                String repeatDay = dto.getRepeatDay().get(i);
+                repeatDto.setRepeatDay(repeatDay);
+                MAPPER.insRepeatDay(repeatDto);
+            }
 
             return entity.getItodo();
         }
@@ -65,10 +65,10 @@ public class TodoService {
             TodoRepeatDayDto repeatDayDto = new TodoRepeatDayDto();
 
             //프론트에서 받은 String 1을 정수형으로 바꾸기
-            int repeatIntDay = Integer.parseInt(dto.getRepeatDay());
+//            int repeatIntDay = Integer.parseInt(dto.getRepeatDay());
             //repeatDayDto에 itodo, repeatDay 값 넣기
             repeatDayDto.setItodo(dto.getItodo());
-            repeatDayDto.setRepeatDay(repeatIntDay);
+            repeatDayDto.setRepeatDay(dto.getRepeatDay());
 
             return MAPPER.updTodoRepeatDay(repeatDayDto);
         }
