@@ -34,12 +34,11 @@
     </update>
 
     <update id="updDiarySubPic">
-        UPDATE p_diary_pic
-        SET pic =
-        <foreach collection="list" item="item" open="(" separator="), (" close=")">
-            #{item.idiary}, #{item.pic}
+        <foreach collection="list" item="item" open="" close="" separator=";">
+            UPDATE p_diary_pic
+            SET pic = #{item.pic}
+            WHERE idiary = #{item.idiary}
         </foreach>
-        WHERE idiary = #{idiary}
     </update>
 
     <select id="selDiaryAll">
