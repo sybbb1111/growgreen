@@ -35,6 +35,8 @@ public class PlantController {
         return SERVICE.delPlant(dto);
     }
 
+
+
     @GetMapping
     @Operation(summary = "모든 식물 리스트 보기 ")
     public List<PlantVo> getPlant() {

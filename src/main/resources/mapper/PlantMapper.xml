@@ -26,8 +26,7 @@
     </delete>
 
     <select id="selPlant" resultType="PlantVo">
-        SELECT iplant, nick_nm nickNm, plant_pic plantPic,
-        DATE_FORMAT(on_date, '%Y.%m.%d') onDate, ctnt, nm
+        SELECT nick_nm nickNm, plant_pic plantPic, nm
         FROM p_plant
     </select>
 

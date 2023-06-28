@@ -66,29 +66,38 @@ public class PlantService {
 
     public int updPlant(MultipartFile img, PlantUpdDto dto) {
 
-        String savedFileNm = FileUtils.makeRandomFileNm(img.getOriginalFilename());
+        String centerPath = String.format("plant/%d", dto.getIplant());
+        String dicPath = String.format("%s/%s", fileDir, centerPath);
 
-        dto.setPlantPic(savedFileNm);
-
-        int result = MAPPER.updPlant(dto);
-
-        String targetDir = String.format("%s/plant/%d", fileDir, dto.getIplant());
-        File fileTargetDir = new File(targetDir);
-
-        if(!fileTargetDir.exists()) {
-            fileTargetDir.mkdirs();
+        File dic = new File(dicPath);
+        if(!dic.exists()) {
+            dic.mkdirs();
         }
-        File fileTarget = new File(targetDir + "/" + savedFileNm);
+
+        String originFileName = img.getOriginalFilename();
+        String savedFileName = FileUtils.makeRandomFileNm(originFileName);
+        String savedFilePath = String.format("%s/%s", centerPath, savedFileName);
+        String targetPath = String.format("%s/%s", fileDir, savedFilePath);
+        File target = new File(targetPath);
         try {
-            img.transferTo(fileTarget);
-        } catch (IOException e) {
-            e.printStackTrace();
+            img.transferTo(target);
+        }catch (Exception e) {
+            return 0;
+        }
+        dto.setPlantPic(savedFileName);
+        try {
+            int result = MAPPER.updPlant(dto);
+            if(result == 0) {
+                throw new Exception("사진을 수정할 수 없습니다.");
+            }
+        } catch (Exception e) {
+            //파일 삭제
+            target.delete();
             return 0;
         }
         return 1;
-
-
     }
+
 
 
 
