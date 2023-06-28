@@ -83,7 +83,6 @@ public class TodoService {
                 repeatDto.setRepeatDay(repeatDay);
                 MAPPER.insRepeatDay(repeatDto);
             }
-            return MAPPER.updTodoRepeatDay(repeatDto);
         }
         return 1;
 
