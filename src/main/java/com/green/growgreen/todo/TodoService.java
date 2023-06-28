@@ -76,10 +76,14 @@ public class TodoService {
 
     }
 
-    public int deleteTodo(int itodo) {
-        TodoEntity entity = new TodoEntity();
-        entity.setItodo(itodo);
-
-        return MAPPER.delTodo(entity);
+    public int deleteTodo(TodoDelDto dto) {
+        // delYn = 1 인 경우 t_day에서도 데이터 삭제
+        if(dto.getDelYn().equals("1")) {
+            MAPPER.delRepeatDay(dto);
+        }
+        // todo 삭제
+        return MAPPER.delTodo(dto);
     }
+
+
 }

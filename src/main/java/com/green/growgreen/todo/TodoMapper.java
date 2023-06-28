@@ -14,5 +14,6 @@ public interface TodoMapper {
     List<TodoVo> selTodoByDay(TodoSelDto dto);
     int updTodo(TodoUpdDto dto);
     int updTodoRepeatDay(TodoRepeatDayDto repeatDayDtodto);
-    int delTodo(TodoEntity entity);
+    int delTodo(TodoDelDto dto);
+    int delRepeatDay(TodoDelDto dto);
 }

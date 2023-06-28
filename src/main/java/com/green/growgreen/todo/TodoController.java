@@ -1,5 +1,6 @@
 package com.green.growgreen.todo;
 
+import com.green.growgreen.todo.model.TodoDelDto;
 import com.green.growgreen.todo.model.TodoInsDto;
 import com.green.growgreen.todo.model.TodoUpdDto;
 import com.green.growgreen.todo.model.TodoVo;
@@ -32,7 +33,7 @@ public class TodoController {
     }
 
     @GetMapping("/{deadline}")
-    @Operation(summary = "특정날짜의 Todo 목록 보기", description = "deadline = 2023-06-26")
+    @Operation(summary = "특정날짜의 Todo 목록 보기", description = "deadline 형식 = 2023-06-26")
     public List<TodoVo> getTodoByDay(@RequestParam String deadline) {
         return SERVICE.getTodoByDay(deadline);
 
@@ -45,9 +46,10 @@ public class TodoController {
     }
 
     @DeleteMapping
-    @Operation(summary = "Todo 삭제")
-    public int deleteTodo(@RequestParam int itodo) {
-        return SERVICE.deleteTodo(itodo);
+    @Operation(summary = "Todo 삭제", description = "반복 있는 Todo 삭제시 반복요일(repeatDay) 데이터도 삭제")
+    public int deleteTodo(@RequestBody TodoDelDto dto) {
+
+        return SERVICE.deleteTodo(dto);
     }
 
 }

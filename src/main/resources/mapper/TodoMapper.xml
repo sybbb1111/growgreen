@@ -46,4 +46,9 @@
         WHERE itodo = #{itodo}
     </update>
 
+    <delete id="delRepeatDay">
+        DELETE FROM p_day
+        WHERE itodo = #{itodo}
+    </delete>
+
 </mapper>
