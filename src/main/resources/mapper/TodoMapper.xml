@@ -14,8 +14,10 @@
     </insert>
 
     <select id="selTodo">
-        SELECT itodo, iplant, ctnt, deadline, finish_yn
-        FROM p_todo
+        SELECT A.ctnt, DATE_FORMAT(A.deadline, "%m-%d") month,date_format(A.deadline, "%H-%i") time, B.nick_nm nickNm, B.nm
+        FROM p_todo A
+        INNER JOIN p_plant B
+        ON A.iplant = B.iplant
         WHERE del_yn = 0
         ORDER BY deadline
     </select>
@@ -23,7 +25,7 @@
     <select id="selTodoByDay">
         SELECT itodo, iplant, ctnt, deadline, finish_yn
         FROM p_todo
-        WHERE DATE_FORMAT(deadline, '%Y-%m-%d') = #{deadline}
+        WHERE DATE(deadline) = #{deadline}
         AND del_yn = 0
     </select>
 

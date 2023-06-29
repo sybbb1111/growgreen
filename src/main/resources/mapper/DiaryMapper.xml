@@ -39,12 +39,12 @@
     </update>
 
     <select id="selDiaryAll">
-        SELECT DATE_FORMAT(created_at, '%Y.%m.%d') createdAt, title, ctnt, pic
+        SELECT DATE(created_at) createdAt, title, ctnt, pic
         FROM p_diary
     </select>
 
     <select id="selDiaryById">
-        SELECT DATE_FORMAT(created_at, '%Y.%m.%d') createdAt, title, ctnt, pic
+        SELECT DATE(created_at) createdAt, title, ctnt, pic
         FROM p_diary
         WHERE idiary = #{idiary}
     </select>
