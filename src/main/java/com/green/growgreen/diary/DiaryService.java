@@ -51,7 +51,9 @@ public class DiaryService {
         }
         return 1;
     }
-    public int insDiaryPics (int idiary, List<MultipartFile> pics) throws Exception  {
+    // 다중 파일 업로드 하기
+    public int insDiaryPics (int idiary,
+                             List<MultipartFile> pics) throws Exception  {
 
         String centPath = String.format("diaryPics/%d", idiary);
         String targetDir = String.format("%s/%s", fileDir,centPath);
@@ -82,43 +84,15 @@ public class DiaryService {
             list.add(entity);
         }
 
-        return Integer.valueOf(MAPPER.insDiaryPic(list));
+        return MAPPER.insDiaryPic(list);
     }
 
-    public int putDiaryPics (int idiary, List<MultipartFile> pics) throws Exception  {
-
-        String centPath = String.format("diaryPics/%d", idiary);
-        String targetDir = String.format("%s/%s", fileDir,centPath);
-
-        File file = new File(targetDir);
-        if (!file.exists()){
-            file.mkdirs();
-        }
-
-        List<DiaryPicEntity> list = new ArrayList<>();
-
-        for (MultipartFile multipartFile : pics) {
-
-            String originFile = multipartFile.getOriginalFilename();
-            String saveName = FileUtils.makeRandomFileNm(originFile);
-
-            File fileTarget = new File(targetDir + "/" + saveName);
-
-            try {
-                multipartFile.transferTo(fileTarget);
-            } catch (IOException e) {
-                throw new Exception("파일 저장을 실패하였습니다.");
-            }
-
-            DiaryPicEntity entity = new DiaryPicEntity();
-            entity.setPic(saveName);
-            entity.setIdiary(idiary);
-            list.add(entity);
-        }
-
-        return Integer.valueOf(MAPPER.updDiarySubPic(list));
+    // 다이어리 다중 파일 삭제
+    public int putDiaryPics (DiaryDelSubPicsDto dto)   {
+        return MAPPER.delDiarySubPic(dto);
     }
 
+    // 썸네일과 내용 수정하기
     public int updDiary (MultipartFile pic, DiaryUpdDto dto){
 
         DiaryEntity entity = new DiaryEntity();
@@ -150,14 +124,17 @@ public class DiaryService {
         return 1;
     }
 
+    // 전체 리스트 보기
     public List<DiarySelAllVo> selDiary(){
         return MAPPER.selDiaryAll();
     }
 
+    // 하나의 디테일 다이어리 보기
     public DiarySelAllVo selById (DiarySelDetailDto dto) {
         return MAPPER.selDiaryById(dto);
     }
 
+    // 하나의 디테일한 리스트와 그 하위 이미지들 보기
     public DiaryAllDto selDiaryPicData (DiarySelDetailDto dto) {
 
         DiarySelAllVo data = MAPPER.selDiaryById(dto);
@@ -169,6 +146,7 @@ public class DiaryService {
                 .build();
     }
 
+    // 다이어리 삭제 다중이미지도 함께 삭제
     public int delDiary (DiaryDelDto dto) {
         return MAPPER.delDiary(dto);
     }

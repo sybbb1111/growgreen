@@ -46,12 +46,12 @@ public class DiaryController {
         return SERVICE.updDiary(pic, dto);
     }
 
-    @PutMapping(value = "/{idiary}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    @Operation(summary = "다이어리 다중 이미지 수정")
-    public int updDiarySubPic( @PathVariable int idiary,
-                               @RequestPart List<MultipartFile> pics
-                             ) throws Exception {
-        return SERVICE.putDiaryPics(idiary, pics);
+    @PutMapping("/{ipic}")
+    @Operation(summary = "다이어리 다중 이미지 삭제")
+    public int updDiarySubPic(@PathVariable int ipic){
+        DiaryDelSubPicsDto dto = new DiaryDelSubPicsDto();
+        dto.setIpic(ipic);
+        return SERVICE.putDiaryPics(dto);
     }
 
     @GetMapping

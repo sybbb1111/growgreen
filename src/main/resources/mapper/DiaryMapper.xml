@@ -25,20 +25,17 @@
         WHERE idiary = #{idiary}
     </delete>
 
+    <delete id="delDiarySubPic">
+        DELETE FROM p_diary_pic
+        WHERE ipic = #{ipic}
+    </delete>
+
     <update id="updDiary">
         UPDATE p_diary
         SET title = #{title},
         ctnt = #{ctnt},
         pic = #{pic}
         WHERE idiary = #{idiary}
-    </update>
-
-    <update id="updDiarySubPic">
-        <foreach collection="list" item="item" open="" close="" separator=";">
-            UPDATE p_diary_pic
-            SET pic = #{item.pic}
-            WHERE idiary = #{item.idiary}
-        </foreach>
     </update>
 
     <select id="selDiaryAll">
@@ -57,4 +54,5 @@
         FROM p_diary_pic
         WHERE idiary = #{idiary}
     </select>
+
 </mapper>
