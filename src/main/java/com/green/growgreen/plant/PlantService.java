@@ -24,7 +24,6 @@ public class PlantService {
         PlantEntity entity = new PlantEntity();
         entity.setNm(dto.getNm());
         entity.setNickNm(dto.getNickNm());
-        entity.setPlantPic(dto.getPlantPic());
         entity.setOnDate(dto.getOnDate());
         entity.setCtnt(dto.getCtnt());
 
@@ -65,28 +64,32 @@ public class PlantService {
 
 
     public int updPlant(MultipartFile img, PlantUpdDto dto) {
-
         String centerPath = String.format("plant/%d", dto.getIplant());
         String dicPath = String.format("%s/%s", fileDir, centerPath);
-
         File dic = new File(dicPath);
         if(!dic.exists()) {
             dic.mkdirs();
         }
-
-        String originFileName = img.getOriginalFilename();
-        String savedFileName = FileUtils.makeRandomFileNm(originFileName);
+        String savedFileName = FileUtils.makeRandomFileNm(img.getOriginalFilename());
         String savedFilePath = String.format("%s/%s", centerPath, savedFileName);
         String targetPath = String.format("%s/%s", fileDir, savedFilePath);
+
         File target = new File(targetPath);
         try {
             img.transferTo(target);
         }catch (Exception e) {
             return 0;
         }
-        dto.setPlantPic(savedFileName);
+        PlantEntity entity = new PlantEntity();
+        entity.setPlantPic(savedFileName);
+        entity.setIplant(dto.getIplant());
+        entity.setNm(dto.getNm());
+        entity.setNickNm(dto.getNickNm());
+        entity.setCtnt(dto.getCtnt());
+        entity.setOnDate(dto.getOnDate());
+
         try {
-            int result = MAPPER.updPlant(dto);
+            int result = MAPPER.updPlant(entity);
             if(result == 0) {
                 throw new Exception("사진을 수정할 수 없습니다.");
             }
@@ -97,10 +100,6 @@ public class PlantService {
         }
         return 1;
     }
-
-
-
-
 
 
 

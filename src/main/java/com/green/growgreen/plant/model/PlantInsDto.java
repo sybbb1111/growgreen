@@ -6,7 +6,6 @@ import lombok.Data;
 public class PlantInsDto {
     private String nm;
     private String nickNm;
-    private String plantPic;
     private String onDate;
     private String ctnt;
 }

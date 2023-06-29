@@ -11,15 +11,21 @@
         ( #{nickNm}, #{plantPic}, #{onDate}, #{ctnt}, #{nm})
     </insert>
 
+
+
+
     <update id="updPlant">
         UPDATE p_plant
         SET nm=#{nm},
             nick_nm=#{nickNm},
             plant_pic=#{plantPic},
-            ctnt=#{ctnt}
+            ctnt=#{ctnt},
+            on_date=#{onDate}
         WHERE iplant=#{iplant}
     </update>
-    
+
+
+
     <delete id="delPlant">
         DELETE FROM p_plant
         WHERE iplant=#{iplant}

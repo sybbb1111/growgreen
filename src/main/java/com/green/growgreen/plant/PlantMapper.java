@@ -9,7 +9,7 @@ import java.util.List;
 public interface PlantMapper {
     int insPlant(PlantEntity entity);
 
-    int updPlant(PlantUpdDto dto);
+    int updPlant(PlantEntity entity);
     int delPlant(PlantDelDto dto);
 
     List<PlantVo> selPlant();
