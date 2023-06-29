@@ -30,7 +30,7 @@
     <update id="updTodo">
         UPDATE p_todo
         SET iplant = #{iplant}, deadline = #{deadline}, ctnt = #{ctnt},
-        repeat_yn = #{repeatYn}
+        repeat_yn = #{repeatYn}, updated_at = current_timestamp
         WHERE itodo = #{itodo}
     </update>
 
