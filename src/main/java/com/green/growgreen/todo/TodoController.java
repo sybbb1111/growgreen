@@ -1,9 +1,6 @@
 package com.green.growgreen.todo;
 
-import com.green.growgreen.todo.model.TodoDelDto;
-import com.green.growgreen.todo.model.TodoInsDto;
-import com.green.growgreen.todo.model.TodoUpdDto;
-import com.green.growgreen.todo.model.TodoVo;
+import com.green.growgreen.todo.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/todo")
+@RequestMapping("/api/todo")
 public class TodoController {
     private final TodoService SERVICE;
 
@@ -50,6 +47,12 @@ public class TodoController {
     public int deleteTodo(@RequestBody TodoDelDto dto) {
 
         return SERVICE.deleteTodo(dto);
+    }
+
+    @GetMapping
+    @Operation(summary = "반복하는 투두 리스트 출력")
+    public List<TodoSelRepeatDayVo> selRepeatTodo () {
+        return SERVICE.selRepeatTodo();
     }
 
 }

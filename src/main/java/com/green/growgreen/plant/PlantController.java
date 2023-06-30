@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/plant")
+@RequestMapping("/api/plant")
 @RequiredArgsConstructor
 public class PlantController {
     private final PlantService SERVICE;

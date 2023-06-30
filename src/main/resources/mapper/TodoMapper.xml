@@ -53,4 +53,16 @@
         WHERE itodo = #{itodo}
     </delete>
 
+    <select id = "selRepeatTodo">
+        SELECT B.ctnt, A.repeat_day repeatDay,
+        DATE_FORMAT(B.deadline, "%m-%d") todoMonth,
+        DATE_FORMAT(B.deadline, "%H:%i") todoTime,
+        C.nick_nm nickNm, C.nm
+        FROM p_day A
+        INNER JOIN p_todo B
+        ON A.itodo = B.itodo
+        INNER JOIN p_plant C
+        ON C.iplant = B.iplant
+    </select>
+
 </mapper>

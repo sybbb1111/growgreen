@@ -1,5 +1,7 @@
 package com.green.growgreen.utils;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class FileUtils {
@@ -19,5 +21,14 @@ public class FileUtils {
         String uuid = UUID.randomUUID().toString();
         String saveNm = uuid + getExt(fileNm);
         return saveNm;
+    }
+    public static int getDate () {
+        // LocalDate 생성
+        LocalDate date = LocalDate.now();
+        // DayOfWeek 객체 구하기
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        // 숫자요일 구하기
+        int dayOfWeekNumber = dayOfWeek.getValue();
+        return dayOfWeekNumber - 1;
     }
 }

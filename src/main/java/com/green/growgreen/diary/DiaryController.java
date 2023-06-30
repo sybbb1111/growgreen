@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/diary")
+@RequestMapping("/api/diary")
 @RequiredArgsConstructor
 public class DiaryController {
     private final DiaryService SERVICE;

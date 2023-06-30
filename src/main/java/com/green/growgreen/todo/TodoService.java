@@ -1,10 +1,12 @@
 package com.green.growgreen.todo;
 
 import com.green.growgreen.todo.model.*;
+import com.green.growgreen.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -103,5 +105,16 @@ public class TodoService {
         return MAPPER.delTodo(dto);
     }
 
+    public List<TodoSelRepeatDayVo> selRepeatTodo () {
 
+        List<TodoSelRepeatDayVo> lsit = MAPPER.selRepeatTodo();
+        List <TodoSelRepeatDayVo> temp = new ArrayList<>();
+
+        for (int i = 0; i < lsit.size(); i++) {
+            if (lsit.get(i).getRepeatDay() == FileUtils.getDate()){
+                temp.add(lsit.get(i));
+            }
+        }
+        return temp;
+    }
 }
