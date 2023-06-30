@@ -14,7 +14,7 @@
     </insert>
 
     <select id="selTodo">
-        SELECT A.ctnt, DATE_FORMAT(A.deadline, "%m-%d") month,date_format(A.deadline, "%H-%i") time, B.nick_nm nickNm, B.nm
+        SELECT A.ctnt, DATE_FORMAT(A.deadline, "%m-%d") month,date_format(A.deadline, "%H-%i") time, B.nick_nm nickNm, B.nm, A.finish_yn finishYn
         FROM p_todo A
         INNER JOIN p_plant B
         ON A.iplant = B.iplant
@@ -23,10 +23,13 @@
     </select>
 
     <select id="selTodoByDay">
-        SELECT itodo, iplant, ctnt, deadline, finish_yn
-        FROM p_todo
+        SELECT A.ctnt, DATE_FORMAT(A.deadline, "%m-%d") MONTH, date_format(A.deadline, "%H-%i") time, B.nick_nm nickNm, B.nm, A.finish_yn finishYn
+        FROM p_todo A
+        INNER JOIN p_plant B
+        ON A.iplant = B.iplant
         WHERE DATE(deadline) = #{deadline}
         AND del_yn = 0
+        ORDER BY time
     </select>
 
     <update id="updTodo">

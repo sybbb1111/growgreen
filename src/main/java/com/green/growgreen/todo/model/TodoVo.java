@@ -11,4 +11,5 @@ public class TodoVo {
     private String time;
     private String nickNm;
     private String nm;
+    private int finishYn;
 }
