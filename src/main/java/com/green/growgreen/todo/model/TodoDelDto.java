@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class TodoDelDto {
     private int itodo;
-    private String delYn;
+    private String repeatYn;
 }

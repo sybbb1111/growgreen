@@ -4,6 +4,7 @@ import com.green.growgreen.todo.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,8 +20,14 @@ public class TodoService {
         TodoEntity entity = new TodoEntity();
         entity.setIplant(dto.getIplant());
         entity.setCtnt(dto.getCtnt());
-        entity.setDeadline(dto.getDeadline());
         entity.setRepeatYn(dto.getRepeatYn());
+        //오늘 연월일(ex. 2023-06-30)과 투두 등록시 입력한 시간(ex. 14:00) 문자열 합치기
+        String nowDate = LocalDate.now().toString();
+        StringBuilder sb = new StringBuilder(nowDate);
+        sb.append(" "+dto.getDeadline());
+
+        entity.setDeadline(sb.toString());
+
         //Todo등록
         MAPPER.insTodo(entity);
 
@@ -46,7 +53,6 @@ public class TodoService {
     }
 
     public List<TodoVo> getTodoByDay(String deadline) {
-        //프론트에서 넘어온 deadline의 값이 2023-06-06 형식인지 검사하는 로직 필요
 
         TodoSelDto dto = new TodoSelDto();
         dto.setDeadline(deadline);
@@ -89,8 +95,8 @@ public class TodoService {
     }
 
     public int deleteTodo(TodoDelDto dto) {
-        // delYn = 1 인 경우 t_day에서도 데이터 삭제
-        if(dto.getDelYn().equals("1")) {
+        // repeatYn = 1인 경우(반복이 있다는 의미) t_day에서도 데이터 삭제
+        if(dto.getRepeatYn().equals("1")) {
             MAPPER.delRepeatDay(dto);
         }
         // todo 삭제

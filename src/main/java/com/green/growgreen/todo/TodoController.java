@@ -21,7 +21,7 @@ public class TodoController {
     }
 
     @PostMapping
-    @Operation(summary = "Todo 등록", description = "deadline 형식 = 년-월-일 시:분:초")
+    @Operation(summary = "Todo 등록", description = "deadline 형식 = 시:분")
     public int postTodo(@RequestBody TodoInsDto dto) {
         return SERVICE.postTodo(dto);
     }
