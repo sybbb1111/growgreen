@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class TodoRepeatDayDto {
     private int itodo;
-    private String repeatDay;
+    private int repeatDay;
 }

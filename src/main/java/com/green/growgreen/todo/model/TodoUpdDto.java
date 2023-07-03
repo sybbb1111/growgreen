@@ -10,7 +10,7 @@ public class TodoUpdDto {
     private int iplant;
     private String deadline;
     private String ctnt;
-    private String repeatYn;
-    private List<String> repeatDay;
+    private int repeatYn;
+    private List<Integer> repeatDay;
 
 }
