@@ -18,8 +18,8 @@
         FROM p_todo A
         INNER JOIN p_plant B
         ON A.iplant = B.iplant
-        WHERE del_yn = 0
-        ORDER BY deadline
+        WHERE del_yn = 0 and <![CDATA[ A.deadline <= now() ]]>
+        ORDER BY deadline desc
     </select>
 
     <select id="selTodoByDay">
@@ -28,7 +28,7 @@
         INNER JOIN p_plant B
         ON A.iplant = B.iplant
         WHERE DATE(deadline) = #{deadline}
-        AND del_yn = 0 and <![CDATA[ A.deadline < now() ]]>
+        AND del_yn = 0
         ORDER BY time
     </select>
 
