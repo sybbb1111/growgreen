@@ -28,7 +28,7 @@
         INNER JOIN p_plant B
         ON A.iplant = B.iplant
         WHERE DATE(deadline) = #{deadline}
-        AND del_yn = 0
+        AND del_yn = 0 and <![CDATA[ A.deadline < now() ]]>
         ORDER BY time
     </select>
 
