@@ -23,7 +23,8 @@ public class TodoService {
         entity.setIplant(dto.getIplant());
         entity.setCtnt(dto.getCtnt());
         entity.setRepeatYn(dto.getRepeatYn());
-        entity.setDeadline(dto.getDeadline());
+        entity.setDeadlineDate(dto.getDeadlineDate());
+        entity.setDeadlineTime(dto.getDeadlineTime());
         //오늘 연월일(ex. 2023-06-30)과 투두 등록시 입력한 시간(ex. 14:00) 문자열 합치기
 //        String nowDate = LocalDate.now().toString();
 //        StringBuilder sb = new StringBuilder(nowDate);
@@ -57,7 +58,7 @@ public class TodoService {
     public List<TodoVo> getTodoByDay(String deadline) {
 
         TodoSelDto dto = new TodoSelDto();
-        dto.setDeadline(deadline);
+        dto.setDeadlineDate(deadline);
 
         return MAPPER.selTodoByDay(dto);
     }

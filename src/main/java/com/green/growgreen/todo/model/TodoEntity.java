@@ -7,7 +7,8 @@ public class TodoEntity {
     private int itodo;
     private int iplant;
     private String ctnt;
-    private String deadline;
+    private String deadlineTime;
+    private String deadlineDate;
     private String createdAt;
     private String updatedAt;
     private int delYn;

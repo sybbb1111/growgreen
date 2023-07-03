@@ -5,37 +5,48 @@
 <mapper namespace="com.green.growgreen.todo.TodoMapper">
     <insert id="insTodo" useGeneratedKeys="true" keyProperty="itodo">
         INSERT INTO p_todo
-        SET iplant = #{iplant}, ctnt = #{ctnt}, deadline = #{deadline}, repeat_yn = #{repeatYn}
+        SET iplant = #{iplant},
+        ctnt = #{ctnt},
+        deadline_time = #{deadlineTime},
+        deadline_date = #{deadlineDate},
+        repeat_yn = #{repeatYn}
     </insert>
 
     <insert id="insRepeatDay">
         INSERT INTO p_day
-        SET itodo = #{itodo}, repeat_day = #{repeatDay}
+        SET itodo = #{itodo},
+        repeat_day = #{repeatDay}
     </insert>
 
     <select id="selTodo">
-        SELECT A.ctnt, DATE_FORMAT(A.deadline, "%m-%d") month,date_format(A.deadline, "%H-%i") time, B.nick_nm nickNm, B.nm, A.finish_yn finishYn
+        SELECT A.ctnt, DATE_FORMAT(A.deadline_date, "%m-%d") deadlineDate,
+        date_format(A.deadline_time, "%H:%i") deadlineTime, B.nick_nm nickNm, B.nm, A.finish_yn finishYn
         FROM p_todo A
         INNER JOIN p_plant B
         ON A.iplant = B.iplant
-        WHERE del_yn = 0 and <![CDATA[ A.deadline <= now() ]]>
-        ORDER BY deadline desc
+        WHERE del_yn = 0 and <![CDATA[ A.deadline_date <= now() ]]>
+        ORDER BY deadline_date desc
     </select>
 
     <select id="selTodoByDay">
-        SELECT A.ctnt, DATE_FORMAT(A.deadline, "%m-%d") MONTH, date_format(A.deadline, "%H-%i") time, B.nick_nm nickNm, B.nm, A.finish_yn finishYn
+        SELECT A.ctnt, DATE_FORMAT(A.deadline_date, "%m-%d") deadlineDate,
+        date_format(A.deadline_time, "%H:%i") deadlineTime, B.nick_nm nickNm, B.nm, A.finish_yn finishYn
         FROM p_todo A
         INNER JOIN p_plant B
         ON A.iplant = B.iplant
-        WHERE DATE(deadline) = #{deadline}
+        WHERE deadline_date = #{deadlineDate}
         AND del_yn = 0
-        ORDER BY time
+        ORDER BY deadline_date desc
     </select>
 
     <update id="updTodo">
         UPDATE p_todo
-        SET iplant = #{iplant}, deadline = #{deadline}, ctnt = #{ctnt},
-        repeat_yn = #{repeatYn}, updated_at = current_timestamp
+        SET iplant = #{iplant},
+        deadline_time = #{deadlineTime},
+        deadline_date = #{deadlineDate},
+        ctnt = #{ctnt},
+        repeat_yn = #{repeatYn},
+        updated_at = current_timestamp
         WHERE itodo = #{itodo}
     </update>
 
@@ -58,8 +69,8 @@
 
     <select id = "selRepeatTodo">
         SELECT B.ctnt, A.repeat_day repeatDay,
-        DATE_FORMAT(B.deadline, "%m-%d") todoMonth,
-        DATE_FORMAT(B.deadline, "%H:%i") todoTime,
+        DATE_FORMAT(B.deadline_date, "%m-%d") deadlineDate,
+        DATE_FORMAT(B.deadline_time, "%H:%i") deadlineTime,
         C.nick_nm nickNm, C.nm
         FROM p_day A
         INNER JOIN p_todo B

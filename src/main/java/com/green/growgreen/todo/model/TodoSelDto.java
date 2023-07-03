@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class TodoSelDto {
-    private String deadline;
+    private String deadlineDate;
 }
