@@ -49,10 +49,5 @@ public class TodoController {
         return SERVICE.deleteTodo(dto);
     }
 
-    @GetMapping
-    @Operation(summary = "반복하는 투두 리스트 출력")
-    public List<TodoSelRepeatDayVo> selRepeatTodo () {
-        return SERVICE.selRepeatTodo();
-    }
 
 }

@@ -34,13 +34,13 @@ public class TodoService {
         MAPPER.insTodo(entity);
 
         // repeatYn이 1이면 p_day테이블에 인서트
-        if( dto.getRepeatYn().equals("1") ) {
+        if( dto.getRepeatYn() == 1 ) {
             TodoRepeatDayDto repeatDto = new TodoRepeatDayDto();
 
             repeatDto.setItodo(entity.getItodo());
 
             for(int i=0; i<dto.getRepeatDay().size(); i++) {
-                String repeatDay = dto.getRepeatDay().get(i);
+                int repeatDay = dto.getRepeatDay().get(i);
                 repeatDto.setRepeatDay(repeatDay);
                 MAPPER.insRepeatDay(repeatDto);
             }
@@ -67,14 +67,14 @@ public class TodoService {
         MAPPER.updTodo(dto); // p_todo테이블에서 todo 수정
 
         //repeatYn = 0 인 경우
-        if( dto.getRepeatYn().equals("0") ) {
+        if( dto.getRepeatYn() == 0 ) {
             TodoDelDto delDto = new TodoDelDto();
             delDto.setItodo(dto.getItodo()); // repeatYn=1에서 0으로 바뀐 경우에는 p_day에 있는 반복 데이터를 지워야하니깐 필요한 작업
             MAPPER.delRepeatDay(delDto);
         }
 
         //repeatYn = 1 인 경우를 if문으로 먼저 확인
-        if( dto.getRepeatYn().equals("1") ) {
+        if( dto.getRepeatYn() == 1 ) {
             TodoRepeatDayDto repeatDto = new TodoRepeatDayDto();
 
             repeatDto.setItodo(dto.getItodo());
@@ -87,7 +87,7 @@ public class TodoService {
 
             // for문으로 선택한 반복요일 만큼 p_day테이블에 insert
             for(int i=0; i<dto.getRepeatDay().size(); i++) {
-                String repeatDay = dto.getRepeatDay().get(i);
+                int repeatDay = dto.getRepeatDay().get(i);
                 repeatDto.setRepeatDay(repeatDay);
                 MAPPER.insRepeatDay(repeatDto);
             }
@@ -98,7 +98,7 @@ public class TodoService {
 
     public int deleteTodo(TodoDelDto dto) {
         // repeatYn = 1인 경우(반복이 있다는 의미) t_day에서도 데이터 삭제
-        if(dto.getRepeatYn().equals("1")) {
+        if(dto.getRepeatYn() == 1) {
             MAPPER.delRepeatDay(dto);
         }
         // todo 삭제

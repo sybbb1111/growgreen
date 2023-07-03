@@ -10,8 +10,8 @@ public class TodoEntity {
     private String deadline;
     private String createdAt;
     private String updatedAt;
-    private String delYn;
-    private String finishYn;
+    private int delYn;
+    private int finishYn;
     private String finishedAt;
-    private String repeatYn;
+    private int repeatYn;
 }

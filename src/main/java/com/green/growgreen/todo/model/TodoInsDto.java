@@ -9,6 +9,6 @@ public class TodoInsDto {
     private int iplant;
     private String ctnt;
     private String deadline;
-    private String repeatYn;
-    private List<String> repeatDay;
+    private int repeatYn;
+    private List<Integer> repeatDay;
 }
