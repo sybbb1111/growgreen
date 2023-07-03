@@ -32,7 +32,7 @@
     </delete>
 
     <select id="selPlant" resultType="PlantVo">
-        SELECT nick_nm nickNm, plant_pic plantPic, nm
+        SELECT nick_nm nickNm, plant_pic plantPic, nm, on_date onDate
         FROM p_plant
     </select>
 
