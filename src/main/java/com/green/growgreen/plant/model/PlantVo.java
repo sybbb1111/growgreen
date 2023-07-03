@@ -9,4 +9,5 @@ public class PlantVo {
     private String nm;
     private String nickNm;
     private String plantPic;
+    private String onDate;
 }
