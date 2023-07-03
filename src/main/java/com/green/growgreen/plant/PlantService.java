@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PlantService {
-    @Value("D:/download/growgreen/")
+    @Value("${file.dir}")
     private String fileDir;
 
     private final PlantMapper MAPPER;
@@ -40,7 +40,7 @@ public class PlantService {
         System.out.println("pk : " + entity.getIplant());
 
         // D:/download/growgreen/plant/pk 값 폴더 생성
-        String targetDir = String.format("%s/plant/%d", fileDir, entity.getIplant());
+        String targetDir = String.format("%s/plant/%d", FileUtils.getAbsoluteDownloadPath(fileDir), entity.getIplant());
         File fileTargetDir = new File(targetDir);
 
         // 없으면 폴더 만든다
@@ -65,14 +65,14 @@ public class PlantService {
 
     public int updPlant(MultipartFile img, PlantUpdDto dto) {
         String centerPath = String.format("plant/%d", dto.getIplant());
-        String dicPath = String.format("%s/%s", fileDir, centerPath);
+        String dicPath = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centerPath);
         File dic = new File(dicPath);
         if(!dic.exists()) {
             dic.mkdirs();
         }
         String savedFileName = FileUtils.makeRandomFileNm(img.getOriginalFilename());
         String savedFilePath = String.format("%s/%s", centerPath, savedFileName);
-        String targetPath = String.format("%s/%s", fileDir, savedFilePath);
+        String targetPath = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), savedFilePath);
 
         File target = new File(targetPath);
         try {

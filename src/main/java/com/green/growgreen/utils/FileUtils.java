@@ -1,5 +1,6 @@
 package com.green.growgreen.utils;
 
+import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -30,5 +31,10 @@ public class FileUtils {
         // 숫자요일 구하기
         int dayOfWeekNumber = dayOfWeek.getValue();
         return dayOfWeekNumber - 1;
+    }
+
+    public static String getAbsoluteDownloadPath(String path) {
+        File file = new File(path);
+        return file.getAbsolutePath();
     }
 }

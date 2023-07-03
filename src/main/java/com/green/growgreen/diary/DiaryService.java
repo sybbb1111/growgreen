@@ -34,7 +34,7 @@ public class DiaryService {
         int result = MAPPER.insDiary(entity);
 
         String centPath = String.format("diaryPics/%d", entity.getIdiary());
-        String targetDir = String.format("%s/%s", fileDir,centPath);
+        String targetDir = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centPath);
 
         File file = new File(targetDir);
         if (!file.exists()){
@@ -56,7 +56,7 @@ public class DiaryService {
                              List<MultipartFile> pics) throws Exception  {
 
         String centPath = String.format("diaryPics/%d", idiary);
-        String targetDir = String.format("%s/%s", fileDir,centPath);
+        String targetDir = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centPath);
 
         File file = new File(targetDir);
         if (!file.exists()){
@@ -106,7 +106,7 @@ public class DiaryService {
         int result = MAPPER.updDiary(entity);
 
         String centPath = String.format("diaryPics/%d", dto.getIdiary());
-        String targetDir = String.format("%s/%s", fileDir,centPath);
+        String targetDir = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centPath);
 
         File file = new File(targetDir);
         if (!file.exists()){
