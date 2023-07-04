@@ -44,7 +44,7 @@
     </select>
 
     <select id="selDiaryById">
-        SELECT DATE(created_at) createdAt, title, ctnt, pic
+        SELECT idiary, DATE(created_at) createdAt, title, ctnt, pic
         FROM p_diary
         WHERE idiary = #{idiary}
     </select>

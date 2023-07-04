@@ -108,19 +108,6 @@ public class TodoService {
         return MAPPER.delTodo(dto);
     }
 
-    public List<TodoSelRepeatDayVo> selRepeatTodo () {
-
-        List<TodoSelRepeatDayVo> lsit = MAPPER.selRepeatTodo();
-        List <TodoSelRepeatDayVo> temp = new ArrayList<>();
-
-        for (int i = 0; i < lsit.size(); i++) {
-            if (lsit.get(i).getRepeatDay() == FileUtils.getDate()){
-                temp.add(lsit.get(i));
-            }
-        }
-        return temp;
-    }
-
     @Scheduled(cron = "0 0 0 ? * *")
     public void insUpdRepeatDay (){
         log.info("오늘 자 반복 인서트 됨");
