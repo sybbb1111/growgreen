@@ -31,7 +31,7 @@ public class TodoController {
 
     @GetMapping("/{deadline}")
     @Operation(summary = "특정날짜의 Todo 목록 보기", description = "deadline 형식 = 2023-06-26")
-    public List<TodoVo> getTodoByDay(@RequestParam String deadline) {
+    public List<TodoVo> getTodoByDay(@PathVariable String deadline) {
         return SERVICE.getTodoByDay(deadline);
     }
 
