@@ -81,7 +81,6 @@ public class TodoService {
             TodoRepeatDayDto repeatDto = new TodoRepeatDayDto();
 
             repeatDto.setItodo(dto.getItodo());
-//            repeatDto.setRepeatDay(dto.getRepeatDay());
 
             //p_day테이블에 있는 기존 반복 데이터 삭제
             TodoDelDto delDto = new TodoDelDto();
