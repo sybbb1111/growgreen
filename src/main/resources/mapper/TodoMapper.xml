@@ -39,6 +39,16 @@
         ORDER BY deadline_date desc
     </select>
 
+    <select id="selTodoAll">
+        SELECT A.ctnt, DATE_FORMAT(A.deadline_date, "%m-%d") deadlineDate,
+            date_format(A.deadline_time, "%H:%i") deadlineTime, B.nick_nm nickNm, B.nm, A.finish_yn finishYn
+        FROM p_todo A
+        INNER JOIN p_plant B
+        ON A.iplant = B.iplant
+        WHERE del_yn = 0 AND finish_yn = 0
+        ORDER BY deadline_date
+    </select>
+
     <update id="updTodo">
         UPDATE p_todo
         SET iplant = #{iplant},

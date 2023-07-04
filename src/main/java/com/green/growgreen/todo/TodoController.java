@@ -24,7 +24,7 @@ public class TodoController {
     }
 
     @GetMapping
-    @Operation(summary = "모든 Todo리스트 보기 ")
+    @Operation(summary = "deadline이 오늘날짜인 Todo리스트 보기 ")
     public List<TodoVo> getTodo() {
         return SERVICE.getTodo();
     }
@@ -33,7 +33,12 @@ public class TodoController {
     @Operation(summary = "특정날짜의 Todo 목록 보기", description = "deadline 형식 = 2023-06-26")
     public List<TodoVo> getTodoByDay(@RequestParam String deadline) {
         return SERVICE.getTodoByDay(deadline);
+    }
 
+    @GetMapping("/list")
+    @Operation(summary = "전체 Todo리스트 보기", description = "finishYn =0(완료되지 않은 투두), delYn=0(삭제되지 않은 투두)만 출력")
+    public List<TodoVo> getTodoAll() {
+        return SERVICE.getTodoAll();
     }
 
     @PutMapping
