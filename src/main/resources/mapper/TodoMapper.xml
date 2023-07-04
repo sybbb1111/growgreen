@@ -89,4 +89,13 @@
         ON C.iplant = B.iplant
     </select>
 
+    <insert id="insUpdRepeatDay">
+        INSERT INTO p_todo(iplant, ctnt, deadline_time, deadline_date,repeat_yn)
+        SELECT B.iplant,B.ctnt, B.deadline_time, #{deadlineDate},B.repeat_yn
+        FROM p_day A
+        INNER JOIN p_todo B
+        ON A.itodo = B.itodo
+        WHERE A.repeat_day = #{repeatDay}
+    </insert>
+
 </mapper>
