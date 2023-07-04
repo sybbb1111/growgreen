@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class DiarySelAllVo {
+    private int idiary;
     private String title;
     private String ctnt;
     private String createdAt;

@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class PlantVo {
+    private int iplant;
     private String nm;
     private String nickNm;
     private String plantPic;
