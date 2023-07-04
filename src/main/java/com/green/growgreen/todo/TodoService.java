@@ -2,7 +2,9 @@ package com.green.growgreen.todo;
 
 import com.green.growgreen.todo.model.*;
 import com.green.growgreen.utils.FileUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class TodoService {
     private final TodoMapper MAPPER;
 
@@ -116,5 +119,18 @@ public class TodoService {
             }
         }
         return temp;
+    }
+
+    @Scheduled(cron = "0 0 0 ? * *")
+    public void insUpdRepeatDay (){
+        log.info("오늘 자 반복 인서트 됨");
+        List<TodoSelRepeatDayVo> list = MAPPER.selRepeatTodo();
+        int day = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getRepeatDay() == FileUtils.getDate()){
+                day = FileUtils.getDate();
+            }
+        }
+        MAPPER.insUpdRepeatDay(day);
     }
 }
