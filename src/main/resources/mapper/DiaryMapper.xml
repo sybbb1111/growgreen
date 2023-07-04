@@ -41,6 +41,7 @@
     <select id="selDiaryAll">
         SELECT idiary, DATE(created_at) createdAt, title, ctnt, pic
         FROM p_diary
+        ORDER BY created_at desc
     </select>
 
     <select id="selDiaryById">
