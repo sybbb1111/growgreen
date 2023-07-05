@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 @Data
 public class TodoVo {
+    private int itodo;
     private String ctnt;
     private String deadlineDate;
     private String deadlineTime;

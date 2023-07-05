@@ -19,7 +19,7 @@
     </insert>
 
     <select id="selTodo">
-        SELECT A.ctnt, DATE_FORMAT(A.deadline_date, "%m-%d") deadlineDate,
+        SELECT A.itodo, A.ctnt, DATE_FORMAT(A.deadline_date, "%m-%d") deadlineDate,
         date_format(A.deadline_time, "%H:%i") deadlineTime, B.nick_nm nickNm, B.nm, A.finish_yn finishYn
         FROM p_todo A
         INNER JOIN p_plant B
