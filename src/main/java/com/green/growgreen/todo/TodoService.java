@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -63,6 +65,15 @@ public class TodoService {
 
     public List<TodoVo> getTodoAll() {
         return MAPPER.selTodoAll();
+    }
+
+    public List<TodoUpdVo> getTodoUpdDto(int itodo, int repeatYn) {
+        if(repeatYn == 1) {
+            return MAPPER.selTodoUpdVoByRepeat1(itodo);
+        } else {
+            return MAPPER.selTodoUpdVoByRepeat0(itodo);
+        }
+
     }
 
     public int putTodo(TodoUpdDto dto) {

@@ -49,6 +49,20 @@
         ORDER BY deadline_date
     </select>
 
+    <select id="selTodoUpdVoByRepeat1" resultType="TodoUpdVo">
+        SELECT A.itodo, A.iplant, A.deadline_time deadlineTime, A.deadline_date deadlineDate, A.ctnt, A.repeat_yn repeatYnm, repeat_day repeatDay
+        FROM p_todo A
+        INNER JOIN p_day B
+        ON A.itodo = B.itodo
+        WHERE A.itodo = #{itodo}
+    </select>
+
+    <select id="selTodoUpdVoByRepeat0">
+        SELECT itodo, iplant, deadline_time deadlineTime, deadline_date deadlineDate, ctnt, repeat_yn repeatYn
+        FROM p_todo
+        WHERE itodo = #{itodo}
+    </select>
+
     <update id="updTodo">
         UPDATE p_todo
         SET iplant = #{iplant},
