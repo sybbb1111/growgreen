@@ -50,4 +50,10 @@
         WHERE idiary = #{idiary}
     </select>
 
+    <select id="selDiaryDetailPics">
+        SELECT pic
+        FROM p_diary_pic
+        WHERE idiary = #{idiary}
+    </select>
+
 </mapper>
