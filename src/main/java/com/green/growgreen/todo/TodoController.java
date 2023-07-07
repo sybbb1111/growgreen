@@ -55,9 +55,8 @@ public class TodoController {
 
     @DeleteMapping
     @Operation(summary = "Todo 삭제", description = "반복 있는 Todo 삭제시 반복요일(repeatDay) 데이터도 삭제")
-    public int deleteTodo(@RequestBody TodoDelDto dto) {
-
-        return SERVICE.deleteTodo(dto);
+    public int deleteTodo(@RequestParam int itodo) {
+        return SERVICE.deleteTodo(itodo);
     }
 
 

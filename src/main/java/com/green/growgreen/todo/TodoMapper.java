@@ -21,8 +21,8 @@ public interface TodoMapper {
     int updTodo(TodoUpdDto dto);
     int updTodoRepeatDay(TodoRepeatDayDto repeatDayDto);
 
-    int delTodo(TodoDelDto dto);
-    int delRepeatDay(TodoDelDto dto);
+    int delTodo(int itodo);
+    int delRepeatDay(int itodo);
 
     List<TodoSelRepeatDayVo> selRepeatTodo ();
     int insUpdRepeatDay (int day);
