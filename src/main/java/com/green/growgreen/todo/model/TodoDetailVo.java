@@ -1,18 +1,15 @@
 package com.green.growgreen.todo.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.List;
-
-@Data
-public class TodoUpdVo {
+@Getter
+@AllArgsConstructor
+public class TodoDetailVo {
     private int itodo;
     private int iplant;
     private String deadlineTime;
     private String deadlineDate;
     private String ctnt;
     private int repeatYn;
-    private int repeatDay;
-
 }

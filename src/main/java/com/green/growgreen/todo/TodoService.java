@@ -45,7 +45,6 @@ public class TodoService {
                 repeatDto.setRepeatDay(repeatDay);
                 MAPPER.insRepeatDay(repeatDto);
             }
-
             return entity.getItodo();
         }
         return entity.getItodo();
@@ -56,7 +55,6 @@ public class TodoService {
     }
 
     public List<TodoVo> getTodoByDay(String deadline) {
-
         TodoSelDto dto = new TodoSelDto();
         dto.setDeadlineDate(deadline);
 
@@ -67,13 +65,11 @@ public class TodoService {
         return MAPPER.selTodoAll();
     }
 
-    public List<TodoUpdVo> getTodoUpdDto(int itodo, int repeatYn) {
-        if(repeatYn == 1) {
-            return MAPPER.selTodoUpdVoByRepeat1(itodo);
-        } else {
-            return MAPPER.selTodoUpdVoByRepeat0(itodo);
-        }
+    public TodoAllDto getTodoDetail(int itodo) {
+        TodoDetailVo todo = MAPPER.selTodoDetail(itodo);
+        List<String> repeatDay = MAPPER.selTodoRepeatDay(itodo);
 
+        return TodoAllDto.builder().todo(todo).repeatDay(repeatDay).build();
     }
 
     public int putTodo(TodoUpdDto dto) {

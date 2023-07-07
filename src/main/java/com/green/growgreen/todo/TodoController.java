@@ -41,10 +41,10 @@ public class TodoController {
         return SERVICE.getTodoAll();
     }
 
-    @GetMapping("/upd/{itodo}")
-    @Operation(summary = "투두 수정할 때 보내줄 데이터")
-    public List<TodoUpdVo> getTodoUpdDto(@PathVariable int itodo, @RequestParam int repeatYn) {
-        return SERVICE.getTodoUpdDto(itodo, repeatYn);
+    @GetMapping("/detail/{itodo}")
+    @Operation(summary = "Todo 디테일")
+    public TodoAllDto getTodoDetail(@PathVariable int itodo) {
+        return SERVICE.getTodoDetail(itodo);
     }
 
     @PutMapping
