@@ -102,7 +102,10 @@ public class TodoService {
             }
         }
         return 1;
+    }
 
+    public int putTodoFinish(int itodo) {
+        return MAPPER.updTodoFinish(itodo);
     }
 
     public int deleteTodo(int itodo) {

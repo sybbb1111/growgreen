@@ -53,6 +53,12 @@ public class TodoController {
         return SERVICE.putTodo(dto);
     }
 
+    @PutMapping("/{itodo}")
+    @Operation(summary = "Todo 완료")
+    public int putTodoFinish(@PathVariable int itodo) {
+        return SERVICE.putTodoFinish(itodo);
+    }
+
     @DeleteMapping
     @Operation(summary = "Todo 삭제", description = "반복 있는 Todo 삭제시 반복요일(repeatDay) 데이터도 삭제")
     public int deleteTodo(@RequestParam int itodo) {

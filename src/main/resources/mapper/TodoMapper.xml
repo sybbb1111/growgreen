@@ -72,6 +72,13 @@
         WHERE itodo = #{itodo}
     </update>
 
+    <update id="updTodoFinish">
+        UPDATE p_todo
+        SET finish_yn = 1,
+        finished_at = current_timestamp
+        WHERE itodo = #{itodo}
+    </update>
+
     <update id="updTodoRepeatDay">
         UPDATE p_day
         SET repeat_day = #{repeatDay}

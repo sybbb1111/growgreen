@@ -20,6 +20,7 @@ public interface TodoMapper {
 
     int updTodo(TodoUpdDto dto);
     int updTodoRepeatDay(TodoRepeatDayDto repeatDayDto);
+    int updTodoFinish(int itodo);
 
     int delTodo(int itodo);
     int delRepeatDay(int itodo);
