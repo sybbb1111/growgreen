@@ -11,6 +11,15 @@
         ( #{nickNm}, #{plantPic}, #{onDate}, #{ctnt}, #{nm})
     </insert>
 
+    <insert id="insPlantExPic" useGeneratedKeys="true" keyProperty="iplant">
+        INSERT INTO p_plant
+        ( nick_nm, on_date, ctnt, nm )
+        VALUES
+        ( #{nickNm}, #{onDate}, #{ctnt}, #{nm})
+    </insert>
+
+
+
 
 
 
@@ -21,6 +30,15 @@
             plant_pic=#{plantPic},
             ctnt=#{ctnt},
             on_date=#{onDate}
+        WHERE iplant=#{iplant}
+    </update>
+
+    <update id="updPlantExPic">
+        UPDATE p_plant
+        SET nm=#{nm},
+        nick_nm=#{nickNm},
+        ctnt=#{ctnt},
+        on_date=#{onDate}
         WHERE iplant=#{iplant}
     </update>
 

@@ -17,14 +17,14 @@ public class PlantController {
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "식물 등록")
-    public int postPlant(@RequestPart MultipartFile img
+    public int postPlant(@RequestPart(required = false) MultipartFile img
                          ,@RequestPart PlantInsDto dto){
         return SERVICE.insPlant(img, dto);
     }
 
     @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "식물 수정")
-    public int putPlant(@RequestPart MultipartFile img
+    public int putPlant(@RequestPart(required = false) MultipartFile img
                          ,@RequestPart PlantUpdDto dto){
         return SERVICE.updPlant(img, dto);
     }
