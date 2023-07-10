@@ -6,9 +6,9 @@
 
     <insert id="insDiary" useGeneratedKeys="true" keyProperty="idiary">
         INSERT INTO p_diary
-        (title, ctnt, pic)
+        (title, ctnt)
         VALUES
-        (#{title},#{ctnt}, #{pic})
+        (#{title},#{ctnt})
     </insert>
 
     <insert id="insDiaryPic">
@@ -19,6 +19,12 @@
             #{item.idiary}, #{item.pic}
         </foreach>
     </insert>
+
+    <update id="updDiaryMainPic">
+        UPDATE p_diary
+        SET pic = #{pic}
+        WHERE idiary = #{idiary}
+    </update>
 
     <delete id="delDiary">
         DELETE FROM p_diary

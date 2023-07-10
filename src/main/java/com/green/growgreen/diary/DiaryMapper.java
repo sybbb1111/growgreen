@@ -21,5 +21,6 @@ public interface DiaryMapper {
     // 다중파일 업로드 insert, delete
     int insDiaryPic (List<DiaryPicEntity> entity); // 다중이미지 업로드
     int delDiarySubPic (DiaryDelSubPicsDto dto); // 다중이미지 삭제
+    int updDiaryMainPic (DiaryUpdDiaryMainPicDto dto);
 
 }

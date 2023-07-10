@@ -21,69 +21,43 @@ public class DiaryService {
     @Value("${file.dir}")
     private String fileDir;
 
-    // 썸네일 이미지와 처음 insert 하는 부분
-    public int postDiary (MultipartFile pic, DiaryInsDto dto){
-
+    public int allDto (DiaryInsDto dto, List<MultipartFile> pics) throws Exception{
         DiaryEntity entity = new DiaryEntity();
         entity.setCtnt(dto.getCtnt());
         entity.setTitle(dto.getTitle());
 
-        String saveFileName = FileUtils.makeRandomFileNm(pic.getOriginalFilename());
+        MAPPER.insDiary(entity);
 
-        entity.setPic(saveFileName);
-        int result = MAPPER.insDiary(entity);
+        String centerPath = String.format("diaryPics/%d", entity.getIdiary());
+        String targetPath = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centerPath);
 
-        String centPath = String.format("diaryPics/%d", entity.getIdiary());
-        String targetDir = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centPath);
-
-        File file = new File(targetDir);
-        if (!file.exists()){
+        File file = new File(targetPath);
+        if (!file.exists()) {
             file.mkdirs();
         }
-
-        File fileTarget = new File(targetDir + "/" + saveFileName);
-
-        try {
-            pic.transferTo(fileTarget);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 0;
-        }
-        return 1;
-    }
-    // 다중 파일 업로드 하기
-    public int insDiaryPics (int idiary,
-                             List<MultipartFile> pics) throws Exception  {
-
-        String centPath = String.format("diaryPics/%d", idiary);
-        String targetDir = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centPath);
-
-        File file = new File(targetDir);
-        if (!file.exists()){
-            file.mkdirs();
-        }
-
         List<DiaryPicEntity> list = new ArrayList<>();
 
-        for (MultipartFile multipartFile : pics) {
-
-            String originFile = multipartFile.getOriginalFilename();
+        for (int i = 0; i < pics.size(); i++) {
+            String originFile = pics.get(i).getOriginalFilename();
             String saveName = FileUtils.makeRandomFileNm(originFile);
 
-            File fileTarget = new File(targetDir + "/" + saveName);
+            File fileTarget = new File(targetPath+ "/" + saveName);
 
             try {
-                multipartFile.transferTo(fileTarget);
+                pics.get(i).transferTo(fileTarget);
             } catch (IOException e) {
-                throw new Exception("파일 저장을 실패하였습니다.");
+                throw new Exception("파일저장을 실패했습니다.");
             }
 
-            DiaryPicEntity entity = new DiaryPicEntity();
-            entity.setPic(saveName);
-            entity.setIdiary(idiary);
-            list.add(entity);
+            DiaryPicEntity picEntity = new DiaryPicEntity();
+            picEntity.setIdiary(entity.getIdiary());
+            picEntity.setPic(saveName);
+            list.add(picEntity);
         }
-
+        DiaryUpdDiaryMainPicDto picDto = new DiaryUpdDiaryMainPicDto();
+        picDto.setPic(list.get(0).getPic());
+        picDto.setIdiary(entity.getIdiary());
+        MAPPER.updDiaryMainPic(picDto);
         return MAPPER.insDiaryPic(list);
     }
 
