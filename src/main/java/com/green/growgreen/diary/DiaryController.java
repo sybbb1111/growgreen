@@ -22,7 +22,7 @@ public class DiaryController {
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "다이어리 등록, 메인사진과 다중이미지까지 업로드")
     public int postDiary(@RequestPart DiaryInsDto dto,
-                         @RequestPart List<MultipartFile> pics) throws Exception{
+                         @RequestPart(required = false) List<MultipartFile> pics) throws Exception{
         return SERVICE.allDto(dto, pics);
     }
 

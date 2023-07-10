@@ -22,43 +22,48 @@ public class DiaryService {
     private String fileDir;
 
     public int allDto (DiaryInsDto dto, List<MultipartFile> pics) throws Exception{
+        int result = 0;
+
         DiaryEntity entity = new DiaryEntity();
         entity.setCtnt(dto.getCtnt());
         entity.setTitle(dto.getTitle());
 
-        MAPPER.insDiary(entity);
+       result = MAPPER.insDiary(entity);
 
-        String centerPath = String.format("diaryPics/%d", entity.getIdiary());
-        String targetPath = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centerPath);
+        if (pics != null) {
+            String centerPath = String.format("diaryPics/%d", entity.getIdiary());
+            String targetPath = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centerPath);
 
-        File file = new File(targetPath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        List<DiaryPicEntity> list = new ArrayList<>();
-
-        for (int i = 0; i < pics.size(); i++) {
-            String originFile = pics.get(i).getOriginalFilename();
-            String saveName = FileUtils.makeRandomFileNm(originFile);
-
-            File fileTarget = new File(targetPath+ "/" + saveName);
-
-            try {
-                pics.get(i).transferTo(fileTarget);
-            } catch (IOException e) {
-                throw new Exception("파일저장을 실패했습니다.");
+            File file = new File(targetPath);
+            if (!file.exists()) {
+                file.mkdirs();
             }
+            List<DiaryPicEntity> list = new ArrayList<>();
 
-            DiaryPicEntity picEntity = new DiaryPicEntity();
-            picEntity.setIdiary(entity.getIdiary());
-            picEntity.setPic(saveName);
-            list.add(picEntity);
+            for (int i = 0; i < pics.size(); i++) {
+                String originFile = pics.get(i).getOriginalFilename();
+                String saveName = FileUtils.makeRandomFileNm(originFile);
+
+                File fileTarget = new File(targetPath+ "/" + saveName);
+
+                try {
+                    pics.get(i).transferTo(fileTarget);
+                } catch (IOException e) {
+                    throw new Exception("파일저장을 실패했습니다.");
+                }
+
+                DiaryPicEntity picEntity = new DiaryPicEntity();
+                picEntity.setIdiary(entity.getIdiary());
+                picEntity.setPic(saveName);
+                list.add(picEntity);
+            }
+            DiaryUpdDiaryMainPicDto picDto = new DiaryUpdDiaryMainPicDto();
+            picDto.setPic(list.get(0).getPic());
+            picDto.setIdiary(entity.getIdiary());
+            MAPPER.updDiaryMainPic(picDto);
+            result = MAPPER.insDiaryPic(list);
         }
-        DiaryUpdDiaryMainPicDto picDto = new DiaryUpdDiaryMainPicDto();
-        picDto.setPic(list.get(0).getPic());
-        picDto.setIdiary(entity.getIdiary());
-        MAPPER.updDiaryMainPic(picDto);
-        return MAPPER.insDiaryPic(list);
+        return result;
     }
 
     // 다이어리 다중 파일 삭제
