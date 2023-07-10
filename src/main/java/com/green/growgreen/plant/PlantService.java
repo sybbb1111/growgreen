@@ -59,16 +59,18 @@ public class PlantService {
                 e.printStackTrace();
                 return 0;
             }
+        } else {
+            PlantEntity entity = new PlantEntity();
+            entity.setNm(dto.getNm());
+            entity.setNickNm(dto.getNickNm());
+            entity.setOnDate(dto.getOnDate());
+            entity.setCtnt(dto.getCtnt());
+            result = MAPPER.insPlantExPic(entity);
+
+            return result;
+
         }
-
-        PlantEntity entity = new PlantEntity();
-        entity.setNm(dto.getNm());
-        entity.setNickNm(dto.getNickNm());
-        entity.setOnDate(dto.getOnDate());
-        entity.setCtnt(dto.getCtnt());
-        result = MAPPER.insPlantExPic(entity);
-
-        return result;
+        return 1;
     }
 
 
