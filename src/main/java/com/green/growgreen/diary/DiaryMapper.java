@@ -12,6 +12,7 @@ public interface DiaryMapper {
     int insDiary (DiaryEntity entity); // 이미지 포함 insert
     int delDiary (DiaryDelDto dto); // delete
     int updDiary (DiaryEntity entity); // update
+    int updDiary1 (DiaryEntity entity);
 
     // select 문
     List<DiarySelAllVo> selDiaryAll (); // 전체 select

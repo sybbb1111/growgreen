@@ -44,6 +44,13 @@
         WHERE idiary = #{idiary}
     </update>
 
+    <update id="updDiary1">
+        UPDATE p_diary
+        SET title = #{title},
+        ctnt = #{ctnt}
+        WHERE idiary = #{idiary}
+    </update>
+
     <select id="selDiaryAll">
         SELECT idiary, DATE(created_at) createdAt, title, ctnt, pic
         FROM p_diary

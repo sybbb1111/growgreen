@@ -73,27 +73,31 @@ public class DiaryService {
         entity.setIdiary(dto.getIdiary());
         entity.setCtnt(dto.getCtnt());
         entity.setTitle(dto.getTitle());
+        //pic이 null일 때
+        MAPPER.updDiary1(entity);
 
-        String saveFileName = FileUtils.makeRandomFileNm(pic.getOriginalFilename());
-        entity.setPic(saveFileName);
+        if(pic != null) {
+            String saveFileName = FileUtils.makeRandomFileNm(pic.getOriginalFilename());
+            entity.setPic(saveFileName);
 
-        int result = MAPPER.updDiary(entity);
+            int result = MAPPER.updDiary(entity);
 
-        String centPath = String.format("diaryPics/%d", dto.getIdiary());
-        String targetDir = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centPath);
+            String centPath = String.format("diaryPics/%d", dto.getIdiary());
+            String targetDir = String.format("%s/%s", FileUtils.getAbsoluteDownloadPath(fileDir), centPath);
 
-        File file = new File(targetDir);
-        if (!file.exists()){
-            file.mkdirs();
-        }
+            File file = new File(targetDir);
+            if (!file.exists()){
+                file.mkdirs();
+            }
 
-        File fileTarget = new File(targetDir + "/" + saveFileName);
+            File fileTarget = new File(targetDir + "/" + saveFileName);
 
-        try {
-            pic.transferTo(fileTarget);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 0;
+            try {
+                pic.transferTo(fileTarget);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return 0;
+            }
         }
         return 1;
     }

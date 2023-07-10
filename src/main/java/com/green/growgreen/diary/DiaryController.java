@@ -36,7 +36,7 @@ public class DiaryController {
 
     @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "다이어리 수정")
-    public int updDiary(@RequestPart MultipartFile pic,
+    public int updDiary(@RequestPart(required = false) MultipartFile pic,
                         @RequestPart DiaryUpdDto dto) {
         return SERVICE.updDiary(pic, dto);
     }
