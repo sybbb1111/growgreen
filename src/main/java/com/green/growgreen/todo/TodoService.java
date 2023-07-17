@@ -61,7 +61,11 @@ public class TodoService {
         return MAPPER.selTodoByDay(dto);
     }
 
-    public List<TodoVo> getTodoAll() {
+    public List<TodoVo> getTodoAll(String yearMon) {
+        if(yearMon == null){
+            yearMon = "2023-07";
+        }
+
         return MAPPER.selTodoAll();
     }
 

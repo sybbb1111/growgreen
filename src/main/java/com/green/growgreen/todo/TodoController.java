@@ -35,11 +35,19 @@ public class TodoController {
         return SERVICE.getTodoByDay(deadline);
     }
 
+
+
+
+
     @GetMapping("/list")
     @Operation(summary = "캘린더에 표시할 전체 Todo리스트 정보", description = "finishYn =0(완료되지 않은 투두), delYn=0(삭제되지 않은 투두)만 출력")
-    public List<TodoVo> getTodoAll() {
-        return SERVICE.getTodoAll();
+    public List<TodoVo> getTodoAll(@RequestParam(required = false) String yearMon) {
+        return SERVICE.getTodoAll(yearMon);
     }
+
+
+
+
 
     @GetMapping("/detail/{itodo}")
     @Operation(summary = "Todo 디테일")
